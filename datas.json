@@ -1,138 +1,180 @@
 {
-    "meta": {
-        "nextUserId": 3,
-        "nextCardId": 4,
-        "nextTxnNum": 4
+  "meta": {
+    "nextUserId": 5,
+    "nextCardId": 5,
+    "nextTxnNum": 5
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Anar Məmmədov",
+      "email": "anar@example.com",
+      "age": 28
     },
-    "users": [
-        {
-            "id": 1,
-            "name": "Anar Məmmədov",
-            "email": "anar@example.com",
-            "age": 28
-        },
-        {
-            "id": 2,
-            "name": "Leyla Həsənova",
-            "email": "leyla@example.com",
-            "age": 24
-        }
-    ],
-    "profiles": [
-        {
-            "userId": 1,
-            "phone": "+994501234567",
-            "address": "Bakı, Nərimanov r., Atatürk 12",
-            "birthDate": "1996-03-15",
-            "nationality": "AZ",
-            "gender": "male",
-            "occupation": "Software Engineer",
-            "pinCode": "1234"
-        },
-        {
-            "userId": 2,
-            "phone": "+994552345678",
-            "address": "Bakı, Xətai r., Hüsü Hacıyev 5",
-            "birthDate": "2000-07-22",
-            "nationality": "AZ",
-            "gender": "female",
-            "occupation": "Designer",
-            "pinCode": "5678"
-        }
-    ],
-    "cards": [
-        {
-            "id": 1,
-            "userId": 1,
-            "pan": "4169738012345678",
-            "maskedPan": "4169 **** **** 5678",
-            "cardHolder": "ANAR MAMMADOV",
-            "expiryDate": "12/27",
-            "cvv": "123",
-            "type": "VISA",
-            "cardType": "debit",
-            "currency": "AZN",
-            "balance": 1250.75,
-            "availableBalance": 1100.00,
-            "status": "active",
-            "isDefault": true,
-            "createdAt": "2023-01-10"
-        },
-        {
-            "id": 2,
-            "userId": 1,
-            "pan": "5273480098765432",
-            "maskedPan": "5273 **** **** 5432",
-            "cardHolder": "ANAR MAMMADOV",
-            "expiryDate": "08/26",
-            "cvv": "456",
-            "type": "MasterCard",
-            "cardType": "credit",
-            "currency": "USD",
-            "balance": 3000.00,
-            "availableBalance": 1800.50,
-            "creditLimit": 3000.00,
-            "status": "active",
-            "isDefault": false,
-            "createdAt": "2022-08-05"
-        },
-        {
-            "id": 3,
-            "userId": 2,
-            "pan": "4916123456781234",
-            "maskedPan": "4916 **** **** 1234",
-            "cardHolder": "LEYLA HASANOVA",
-            "expiryDate": "03/28",
-            "cvv": "789",
-            "type": "VISA",
-            "cardType": "debit",
-            "currency": "AZN",
-            "balance": 850.00,
-            "availableBalance": 850.00,
-            "status": "active",
-            "isDefault": true,
-            "createdAt": "2024-03-01"
-        }
-    ],
-    "transactions": [
-        {
-            "id": "TXN-001",
-            "cardId": 1,
-            "userId": 1,
-            "amount": 45.50,
-            "currency": "AZN",
-            "type": "debit",
-            "category": "shopping",
-            "merchant": "Bravo Supermarket",
-            "description": "Ərzaq alışı",
-            "status": "completed",
-            "createdAt": "2024-12-01T10:30:00Z"
-        },
-        {
-            "id": "TXN-002",
-            "cardId": 1,
-            "userId": 1,
-            "amount": 200.00,
-            "currency": "AZN",
-            "type": "credit",
-            "category": "transfer",
-            "merchant": null,
-            "description": "Bank köçürməsi",
-            "status": "completed",
-            "createdAt": "2024-12-02T14:00:00Z"
-        },
-        {
-            "id": "TXN-003",
-            "cardId": 2,
-            "userId": 1,
-            "amount": 120.00,
-            "currency": "USD",
-            "type": "debit",
-            "category": "travel",
-            "merchant": "Booking.com",
-            "description": "Otel rezervasiyası",
-            "status": "pending",
-            "createdAt": "2024-12-03T09:15:00Z"
-        }
-    ]
+    {
+      "id": 2,
+      "name": "Leyla Həsənova",
+      "email": "leyla@example.com",
+      "age": 24
+    },
+    {
+      "id": 3,
+      "name": "Nigar Əliyeva",
+      "email": "nigar@example.com",
+      "age": 30
+    },
+    {
+      "id": 4,
+      "name": "Nigar Əliyeva",
+      "email": "nigar@example.com",
+      "age": 30
+    }
+  ],
+  "profiles": [
+    {
+      "userId": 1,
+      "phone": "+994501234567",
+      "address": "Bakı, Nərimanov r., Atatürk 12",
+      "birthDate": "1996-03-15",
+      "nationality": "AZ",
+      "gender": "male",
+      "occupation": "Software Engineer",
+      "pinCode": "1234"
+    },
+    {
+      "userId": 2,
+      "phone": "+994552345678",
+      "address": "Bakı, Xətai r., Hüsü Hacıyev 5",
+      "birthDate": "2000-07-22",
+      "nationality": "AZ",
+      "gender": "female",
+      "occupation": "Designer",
+      "pinCode": "5678"
+    }
+  ],
+  "cards": [
+    {
+      "id": 1,
+      "userId": 1,
+      "pan": "4169738012345678",
+      "maskedPan": "4169 **** **** 5678",
+      "cardHolder": "ANAR MAMMADOV",
+      "expiryDate": "12/27",
+      "cvv": "123",
+      "type": "VISA",
+      "cardType": "debit",
+      "currency": "AZN",
+      "balance": 1250.75,
+      "availableBalance": 1100,
+      "status": "active",
+      "isDefault": true,
+      "createdAt": "2023-01-10"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "pan": "5273480098765432",
+      "maskedPan": "5273 **** **** 5432",
+      "cardHolder": "ANAR MAMMADOV",
+      "expiryDate": "08/26",
+      "cvv": "456",
+      "type": "MasterCard",
+      "cardType": "credit",
+      "currency": "USD",
+      "balance": 3000,
+      "availableBalance": 1800.5,
+      "creditLimit": 3000,
+      "status": "active",
+      "isDefault": false,
+      "createdAt": "2022-08-05"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "pan": "4916123456781234",
+      "maskedPan": "4916 **** **** 1234",
+      "cardHolder": "LEYLA HASANOVA",
+      "expiryDate": "03/28",
+      "cvv": "789",
+      "type": "VISA",
+      "cardType": "debit",
+      "currency": "AZN",
+      "balance": 800,
+      "availableBalance": 800,
+      "status": "active",
+      "isDefault": true,
+      "createdAt": "2024-03-01"
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "pan": "4169628317399110",
+      "maskedPan": "4169 **** **** 9110",
+      "cardHolder": "ANAR MAMMADOVVVVVV",
+      "expiryDate": "03/29",
+      "cvv": "859",
+      "type": "VISA",
+      "cardType": "debit",
+      "currency": "AZN",
+      "balance": 0,
+      "availableBalance": 0,
+      "status": "active",
+      "isDefault": false,
+      "createdAt": "2026-03-03"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "TXN-001",
+      "cardId": 1,
+      "userId": 1,
+      "amount": 45.5,
+      "currency": "AZN",
+      "type": "debit",
+      "category": "shopping",
+      "merchant": "Bravo Supermarket",
+      "description": "Ərzaq alışı",
+      "status": "completed",
+      "createdAt": "2024-12-01T10:30:00Z"
+    },
+    {
+      "id": "TXN-002",
+      "cardId": 1,
+      "userId": 1,
+      "amount": 200,
+      "currency": "AZN",
+      "type": "credit",
+      "category": "transfer",
+      "merchant": null,
+      "description": "Bank köçürməsi",
+      "status": "completed",
+      "createdAt": "2024-12-02T14:00:00Z"
+    },
+    {
+      "id": "TXN-003",
+      "cardId": 2,
+      "userId": 1,
+      "amount": 120,
+      "currency": "USD",
+      "type": "debit",
+      "category": "travel",
+      "merchant": "Booking.com",
+      "description": "Otel rezervasiyası",
+      "status": "pending",
+      "createdAt": "2024-12-03T09:15:00Z"
+    },
+    {
+      "id": "TXN-004",
+      "cardId": 3,
+      "userId": 2,
+      "amount": 50,
+      "currency": "AZN",
+      "type": "debit",
+      "category": "food",
+      "merchant": "McDonald's",
+      "description": "Nahər",
+      "status": "completed",
+      "createdAt": "2026-03-03T13:27:58.186Z"
+    }
+  ]
 }

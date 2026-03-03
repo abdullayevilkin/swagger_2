@@ -1,5 +1,4 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
 const swaggerJsdoc = require("swagger-jsdoc");
@@ -7,33 +6,35 @@ const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    if (req.method === "OPTIONS") return res.sendStatus(204);
+    next();
+});
 
 // ════════════════════════════════════════════════════════════
 //  DATABASE  (datas.json)
 // ════════════════════════════════════════════════════════════
 const DB_PATH = path.join(__dirname, "datas.json");
-
 const readDB = () => JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
 const saveDB = (db) => fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), "utf-8");
 
 // ════════════════════════════════════════════════════════════
-//  AUTH CONFIG
+//  AUTH  — sadə statik token
 // ════════════════════════════════════════════════════════════
-const JWT_SECRET = process.env.JWT_SECRET || "super-secret-key-change-in-prod";
-const JWT_EXPIRES = "8h";
 const CREDENTIALS = { login: "admin", password: "admin" };
+const STATIC_TOKEN = "admin-secret-token-2024";
 
 const authenticate = (req, res, next) => {
     const authHeader = req.headers["authorization"];
     if (!authHeader || !authHeader.startsWith("Bearer "))
         return res.status(401).json({ message: "Authorization header tapılmadı" });
     const token = authHeader.split(" ")[1];
-    try {
-        req.user = jwt.verify(token, JWT_SECRET);
-        next();
-    } catch {
-        return res.status(401).json({ message: "Token etibarsız və ya müddəti bitib" });
-    }
+    if (token !== STATIC_TOKEN)
+        return res.status(401).json({ message: "Token etibarsız" });
+    next();
 };
 
 // ════════════════════════════════════════════════════════════
@@ -66,10 +67,10 @@ const swaggerOptions = {
         components: {
             securitySchemes: {
                 BearerAuth: {
-                    type: "http",
-                    scheme: "bearer",
-                    bearerFormat: "JWT",
-                    description: "**GetToken** endpointindən aldığınız JWT tokeni daxil edin.",
+                    type: "apiKey",
+                    in: "header",
+                    name: "Authorization",
+                    description: "Token bu formatda daxil edin: **Bearer admin-secret-token-2024**",
                 },
             },
             schemas: {
@@ -85,8 +86,7 @@ const swaggerOptions = {
                 TokenResponse: {
                     type: "object",
                     properties: {
-                        token: { type: "string", example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." },
-                        expiresIn: { type: "string", example: "8h" },
+                        token: { type: "string", example: "admin-secret-token-2024" },
                         tokenType: { type: "string", example: "Bearer" },
                     },
                 },
@@ -247,7 +247,7 @@ const generateTxnId = (num) => `TXN-${String(num).padStart(3, "0")}`;
  * @swagger
  * /getToken:
  *   post:
- *     summary: Login edib JWT token al
+ *     summary: Login edib token al (admin / admin)
  *     tags: [Auth]
  *     security: []
  *     requestBody:
@@ -267,13 +267,13 @@ const generateTxnId = (num) => `TXN-${String(num).padStart(3, "0")}`;
  *           application/json:
  *             schema: { $ref: '#/components/schemas/Error' }
  */
-app.post("/getToken", (req, res) => {
-    const { login, password } = req.body;
-    if (login !== CREDENTIALS.login || password !== CREDENTIALS.password)
-        return res.status(401).json({ message: "Login və ya şifrə yanlışdır" });
-    const token = jwt.sign({ login, role: "admin" }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
-    res.json({ token, expiresIn: JWT_EXPIRES, tokenType: "Bearer" });
-});
+
+
+
+
+
+
+
 
 // ════════════════════════════════════════════════════════════
 //  👤  USERS
