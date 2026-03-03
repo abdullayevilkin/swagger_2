@@ -55,7 +55,10 @@ const swaggerOptions = {
                 "- 💳 **Cards** — Kart hesabları (PAN, balans, limit və s.)\n" +
                 "- 🔄 **Transactions** — Əməliyyat tarixçəsi",
         },
-        servers: [{ url: "http://localhost:3000", description: "Local server" }],
+        servers: [
+            { url: "https://swagger-2.onrender.com", description: "Render (Production)" },
+            { url: "http://localhost:3000", description: "Local" }
+        ],
         security: [{ BearerAuth: [] }],
         tags: [
             { name: "Auth", description: "Token alma — GetToken" },
@@ -218,6 +221,14 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+// Swagger UI-ya göndərməzdən əvvəl real host-u inject et
+app.use("/api-docs", (req, _res, next) => {
+    const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+    const host = req.headers.host;
+    swaggerSpec.servers = [{ url: `${protocol}://${host}`, description: "Server" }];
+    next();
+});
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
     swaggerOptions: { docExpansion: "list", defaultModelsExpandDepth: 1 },
 }));
@@ -990,6 +1001,48 @@ app.post("/transactions/:id/reverse", authenticate, (req, res) => {
     txn.status = "reversed";
     saveDB(db);
     res.json(txn);
+});
+
+// ════════════════════════════════════════════════════════════
+//  🎂  GET AGE
+// ════════════════════════════════════════════════════════════
+
+/**
+ * @swagger
+ * /getAge:
+ *   get:
+ *     summary: Doğum ilinə görə yaşı hesabla
+ *     tags: [Auth]
+ *     security: []
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Doğum ili (məs. 1996)
+ *     responses:
+ *       200:
+ *         description: Yaş uğurla hesablandı
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 year:    { type: integer, example: 1996 }
+ *                 age:     { type: integer, example: 28 }
+ *       400:
+ *         description: Yanlış il
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ */
+app.get("/getAge", (req, res) => {
+    const year = parseInt(req.query.year);
+    if (!year || isNaN(year) || year < 1900 || year > new Date().getFullYear())
+        return res.status(400).json({ message: "Düzgün doğum ili daxil edin" });
+    const age = new Date().getFullYear() - year;
+    res.json({ year, age });
 });
 
 // ════════════════════════════════════════════════════════════
