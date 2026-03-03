@@ -1,0 +1,29 @@
+# Dependency directories (Ən önəmli hissə)
+node_modules/
+jspm_packages/
+
+# Environment variables (Təhlükəsizlik üçün kritikdir)
+.env
+.env.test
+.env.production
+
+# Build outputs (TypeScript və ya digər transpiler istifadə edirsənsə)
+dist/
+build/
+
+# Debug and Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
