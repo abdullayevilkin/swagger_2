@@ -221,14 +221,6 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-
-// Swagger UI-ya göndərməzdən əvvəl real host-u inject et
-app.use("/api-docs", (req, _res, next) => {
-    const protocol = req.headers["x-forwarded-proto"] || req.protocol;
-    const host = req.headers.host;
-    swaggerSpec.servers = [{ url: `${protocol}://${host}`, description: "Server" }];
-    next();
-});
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
     swaggerOptions: { docExpansion: "list", defaultModelsExpandDepth: 1 },
 }));
